@@ -7,6 +7,9 @@ import { getIssueToolDefinition, handleGetIssue } from './tools/getIssue.js';
 import { searchJqlToolDefinition, handleSearchJql } from './tools/searchJql.js';
 import { getMetaFieldsToolDefinition, handleGetCreateIssueMetaFields } from './tools/getMetaFields.js';
 import { getProjectIssueTypesToolDefinition, handleGetProjectIssueTypes } from './tools/getProjectIssueTypes.js';
+import { findUsersToolDefinition, handleFindUsers } from './tools/findUsers.js';
+import { getTransitionsToolDefinition, handleGetTransitions } from './tools/getTransitions.js';
+import { transitionIssueToolDefinition, handleTransitionIssue } from './tools/transitionIssue.js';
 
 // Instantiate the MCP Server with its metadata and capabilities
 const server = new Server(
@@ -31,6 +34,9 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
       searchJqlToolDefinition,
       getMetaFieldsToolDefinition,
       getProjectIssueTypesToolDefinition,
+      findUsersToolDefinition,
+      getTransitionsToolDefinition,
+      transitionIssueToolDefinition,
     ],
   };
 });
@@ -46,6 +52,12 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       return await handleGetCreateIssueMetaFields(args as any);
     case 'jira_get_project_issue_types':
       return await handleGetProjectIssueTypes(args as any);
+    case 'jira_find_users':
+      return await handleFindUsers(args as any);
+    case 'jira_get_transitions':
+      return await handleGetTransitions(args as any);
+    case 'jira_transition_issue':
+      return await handleTransitionIssue(args as any);
     case 'jira_create_issue':
       return await handleCreateIssue(args as any);
     case 'jira_get_issue':

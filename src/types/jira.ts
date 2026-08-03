@@ -50,6 +50,21 @@ export interface GetProjectIssueTypesParams {
   maxResults?: number;
 }
 
+export interface FindUsersParams {
+  query: string;
+  maxResults?: number;
+}
+
+export interface GetTransitionsParams {
+  issueIdOrKey: string;
+}
+
+export interface TransitionIssueParams {
+  issueIdOrKey: string;
+  transitionId: string;
+  fields?: Record<string, any>;
+}
+
 // Jira API Response Interfaces (Partial representation based on required fields)
 export interface JiraIssueResponse {
   id: string;

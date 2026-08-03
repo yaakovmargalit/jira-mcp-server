@@ -9,6 +9,9 @@ A production-ready, clean, and modular Model Context Protocol (MCP) server that 
 - **jira_create_issue**: Create new tickets, automatically converting plain text descriptions into the required Jira Cloud Atlassian Document Format (ADF). Supports optional custom fields.
 - **jira_get_issue**: Fetch complete details for a ticket using its ID or Key.
 - **jira_search_jql**: Query issues using Jira Query Language (JQL) with customizable limits.
+- **jira_find_users**: Search for Jira users to retrieve their unique `accountId` (required for assigning issues or setting user fields in Jira v3).
+- **jira_get_transitions**: Retrieve the workflow transitions and statuses available for a specific issue, along with their `transitionId`s.
+- **jira_transition_issue**: Transition an issue to a new status (e.g., "Done", "QA") using a transition ID.
 
 ---
 
