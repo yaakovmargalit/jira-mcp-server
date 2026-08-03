@@ -18,6 +18,7 @@ const parseEnv = () => {
   const result = envSchema.safeParse(process.env);
   if (!result.success) {
     console.error('❌ Environment validation failed:');
+    console.error('Available keys in process.env:', Object.keys(process.env).filter(k => k.startsWith('JIRA_') || k.includes('HOST') || k.includes('TOKEN') || k.includes('EMAIL')).join(', '));
     const formatted = result.error.format();
     for (const [key, val] of Object.entries(formatted)) {
       if (key !== '_errors' && val && '_errors' in val) {
