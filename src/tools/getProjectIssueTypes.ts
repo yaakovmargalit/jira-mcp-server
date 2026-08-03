@@ -4,7 +4,7 @@ import { GetProjectIssueTypesParams } from '../types/jira.js';
 
 export const getProjectIssueTypesToolDefinition = {
   name: 'jira_get_project_issue_types',
-  description: 'Fetches the issue types available within a specific project, including their IDs (required for calling jira_get_create_issue_meta_fields). Official API Doc Link: https://developer.atlassian.net/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-createmeta-projectidorkey-issuetypes-get',
+  description: 'Fetches the issue types available within a specific project, including their IDs. You MUST use this tool first to resolve the issueTypeId needed for calling `jira_get_create_issue_meta_fields` (which discovers required custom fields for a specific project/issue type). Official API Doc Link: https://developer.atlassian.net/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-createmeta-projectidorkey-issuetypes-get',
   inputSchema: {
     type: 'object',
     properties: {

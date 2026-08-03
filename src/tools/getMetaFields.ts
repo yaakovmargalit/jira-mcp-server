@@ -4,7 +4,7 @@ import { GetCreateIssueMetaFieldsParams } from '../types/jira.js';
 
 export const getMetaFieldsToolDefinition = {
   name: 'jira_get_create_issue_meta_fields',
-  description: 'Fetches the field configurations and custom fields for a specific project and issue type when creating an issue. This is a highly performant and granular alternative to the deprecated global getCreateMetadata endpoint. Official API Doc Link: https://developer.atlassian.net/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get',
+  description: 'Fetches the field configurations and custom fields for a specific project and issue type when creating an issue. Run this to discover the exact customfield_XXXXX IDs, their expected data types (e.g. string, number, array), and whether they are required before invoking `jira_create_issue`. This is a highly performant and granular alternative to the deprecated global getCreateMetadata endpoint. Official API Doc Link: https://developer.atlassian.net/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-createmeta-projectidorkey-issuetypes-issuetypeid-get',
   inputSchema: {
     type: 'object',
     properties: {
@@ -14,7 +14,7 @@ export const getMetaFieldsToolDefinition = {
       },
       issueTypeId: {
         type: 'string',
-        description: 'The ID of the issue type (e.g., "10001").'
+        description: 'The ID of the issue type (e.g., "10001"). These must be retrieved first by calling `jira_get_project_issue_types`.'
       },
       startAt: {
         type: 'number',
