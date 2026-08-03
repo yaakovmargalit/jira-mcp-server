@@ -17,16 +17,25 @@ A production-ready, clean, and modular Model Context Protocol (MCP) server that 
 
 ## Configuration & Authentication
 
-The server authenticates via HTTP Basic Auth. You must define the following environment variables:
+The server supports both **Jira Data Center** (PAT Bearer Token) and **Jira Cloud** (Basic Auth).
 
+### Jira Data Center (PAT Authentication - Recommended)
+Define these environment variables:
+| Environment Variable | Description | Example |
+|----------------------|-------------|---------|
+| `JIRA_HOST` | The root URL of your Jira Data Center instance | `https://jira.yourcompany.com` |
+| `JIRA_API_TOKEN` | Your Personal Access Token (PAT) | `NjkxODMy...` |
+
+> [!TIP]
+> To create a PAT in Jira Data Center, navigate to **Profile > Personal Access Tokens** and click **Create token**. Keep `JIRA_EMAIL` undefined (or do not set it) to trigger Bearer Token authentication.
+
+### Jira Cloud (Basic Auth)
+Define these environment variables:
 | Environment Variable | Description | Example |
 |----------------------|-------------|---------|
 | `JIRA_HOST` | The root URL of your Jira Cloud instance | `https://your-domain.atlassian.net` |
-| `JIRA_EMAIL` | The email address associated with your Atlassian account | `user@company.com` |
-| `JIRA_API_TOKEN` | Atlassian API Token generated from account security settings | `ATATT...` |
-
-> [!TIP]
-> You can generate an API Token by going to [Atlassian Account Security API Tokens](https://id.atlassian.com/manage-profile/security/api-tokens).
+| `JIRA_EMAIL` | The email associated with your Atlassian account | `user@company.com` |
+| `JIRA_API_TOKEN` | Atlassian API Token | `ATATT...` |
 
 ---
 
@@ -39,6 +48,15 @@ npm install
 
 ### 2. Configure Environment
 Create a `.env` file in the root directory for local testing:
+
+**Jira Data Center (PAT):**
+```env
+JIRA_HOST=https://jira.yourcompany.com
+JIRA_API_TOKEN=your-personal-access-token
+# Leave JIRA_EMAIL blank or omit it
+```
+
+**Jira Cloud (Basic):**
 ```env
 JIRA_HOST=https://your-domain.atlassian.net
 JIRA_EMAIL=user@company.com

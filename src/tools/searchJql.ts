@@ -23,7 +23,7 @@ export const searchJqlToolDefinition = {
 
 /**
  * Handles the jira_search_jql MCP tool call.
- * Official Endpoint: GET /rest/api/3/search
+ * Official Endpoint: GET /rest/api/2/search
  */
 export async function handleSearchJql(params: SearchJqlParams) {
   try {
@@ -34,7 +34,7 @@ export async function handleSearchJql(params: SearchJqlParams) {
       queryParams.maxResults = params.maxResults;
     }
 
-    const response = await jiraClient.get<JiraSearchResponse>('/rest/api/3/search', {
+    const response = await jiraClient.get<JiraSearchResponse>('/rest/api/2/search', {
       params: queryParams
     });
 

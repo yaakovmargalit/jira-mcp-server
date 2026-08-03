@@ -31,7 +31,7 @@ export const getMetaFieldsToolDefinition = {
 
 /**
  * Handles the jira_get_create_issue_meta_fields MCP tool call.
- * Official Endpoint: GET /rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes/{issueTypeId}
+ * Official Endpoint: GET /rest/api/2/issue/createmeta/{projectIdOrKey}/issuetypes/{issueTypeId}
  */
 export async function handleGetCreateIssueMetaFields(params: GetCreateIssueMetaFieldsParams) {
   try {
@@ -44,7 +44,7 @@ export async function handleGetCreateIssueMetaFields(params: GetCreateIssueMetaF
     }
 
     const response = await jiraClient.get(
-      `/rest/api/3/issue/createmeta/${params.projectIdOrKey}/issuetypes/${params.issueTypeId}`,
+      `/rest/api/2/issue/createmeta/${params.projectIdOrKey}/issuetypes/${params.issueTypeId}`,
       { params: queryParams }
     );
 

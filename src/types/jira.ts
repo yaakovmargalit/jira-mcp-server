@@ -18,7 +18,7 @@ export interface ADFDocument {
 export interface CreateIssueParams {
   projectKey: string;
   summary: string;
-  description?: string | ADFDocument;
+  description?: string;
   issueTypeName: string;
   customFields?: Record<string, any>;
 }

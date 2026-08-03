@@ -10,7 +10,7 @@ const envSchema = z.object({
       message: 'JIRA_HOST must start with https://',
     })
     .transform((val) => val.endsWith('/') ? val.slice(0, -1) : val),
-  JIRA_EMAIL: z.string().email('JIRA_EMAIL must be a valid email address'),
+  JIRA_EMAIL: z.string().email('JIRA_EMAIL must be a valid email address').optional(),
   JIRA_API_TOKEN: z.string().min(1, 'JIRA_API_TOKEN cannot be empty'),
 });
 

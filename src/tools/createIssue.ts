@@ -4,7 +4,7 @@ import { CreateIssueParams, JiraIssueResponse } from '../types/jira.js';
 
 export const createIssueToolDefinition = {
   name: 'jira_create_issue',
-  description: 'Creates a new issue, task, bug, or custom asset issue in Jira Cloud. Note: Description must be in Atlassian Document Format (ADF) - if you provide a plain string, this tool will automatically wrap it into a valid ADF paragraph node for you. IMPORTANT: If you need to populate custom fields or do not know what fields are required for the project, you MUST first run `jira_get_project_issue_types` to get the issueTypeId, and then run `jira_get_create_issue_meta_fields` to inspect the available fields, retrieve their exact "customfield_XXXXX" keys, and check their required states and allowed values. Then pass them in the "customFields" parameter. Official API Doc Link: https://developer.atlassian.net/cloud/jira/platform/rest/v3/api-group-issues/#api-rest-api-3-issue-post',
+  description: 'Creates a new issue, task, bug, or custom asset issue in Jira Data Center. Note: Description supports plain text or markdown (API v2). IMPORTANT: If you need to populate custom fields or do not know what fields are required for the project, you MUST first run `jira_get_project_issue_types` to get the issueTypeId, and then run `jira_get_create_issue_meta_fields` to inspect the available fields, retrieve their exact "customfield_XXXXX" keys, and check their required states and allowed values. Then pass them in the "customFields" parameter. Official API Doc Link: https://developer.atlassian.net/server/jira/platform/rest/v8/api-group-issues/#api-api-2-issue-post',
   inputSchema: {
     type: 'object',
     properties: {
@@ -17,8 +17,8 @@ export const createIssueToolDefinition = {
         description: 'A brief summary/title of the issue.'
       },
       description: {
-        type: ['string', 'object'],
-        description: 'The description of the issue. Can be a plain string (which will be auto-converted to ADF) or a full Atlassian Document Format (ADF) object.'
+        type: 'string',
+        description: 'The description of the issue (supports plain text or markdown in Jira Data Center).'
       },
       issueTypeName: {
         type: 'string',
@@ -35,34 +35,10 @@ export const createIssueToolDefinition = {
 
 /**
  * Handles the jira_create_issue MCP tool call.
- * Official Endpoint: POST /rest/api/3/issue
+ * Official Endpoint: POST /rest/api/2/issue
  */
 export async function handleCreateIssue(params: CreateIssueParams) {
   try {
-    let descriptionPayload: any = undefined;
-
-    if (params.description) {
-      if (typeof params.description === 'string') {
-        descriptionPayload = {
-          version: 1,
-          type: 'doc',
-          content: [
-            {
-              type: 'paragraph',
-              content: [
-                {
-                  type: 'text',
-                  text: params.description
-                }
-              ]
-            }
-          ]
-        };
-      } else {
-        descriptionPayload = params.description;
-      }
-    }
-
     const fieldsPayload: Record<string, any> = {
       project: {
         key: params.projectKey
@@ -73,8 +49,8 @@ export async function handleCreateIssue(params: CreateIssueParams) {
       }
     };
 
-    if (descriptionPayload !== undefined) {
-      fieldsPayload.description = descriptionPayload;
+    if (params.description !== undefined) {
+      fieldsPayload.description = params.description;
     }
 
     // Merge in custom fields or other field overrides
@@ -82,7 +58,7 @@ export async function handleCreateIssue(params: CreateIssueParams) {
       Object.assign(fieldsPayload, params.customFields);
     }
 
-    const response = await jiraClient.post<JiraIssueResponse>('/rest/api/3/issue', {
+    const response = await jiraClient.post<JiraIssueResponse>('/rest/api/2/issue', {
       fields: fieldsPayload
     });
 

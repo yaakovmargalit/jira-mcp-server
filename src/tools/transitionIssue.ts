@@ -27,7 +27,7 @@ export const transitionIssueToolDefinition = {
 
 /**
  * Handles the jira_transition_issue MCP tool call.
- * Official Endpoint: POST /rest/api/3/issue/{issueIdOrKey}/transitions
+ * Official Endpoint: POST /rest/api/2/issue/{issueIdOrKey}/transitions
  */
 export async function handleTransitionIssue(params: TransitionIssueParams) {
   try {
@@ -41,7 +41,7 @@ export async function handleTransitionIssue(params: TransitionIssueParams) {
       payload.fields = params.fields;
     }
 
-    const response = await jiraClient.post(`/rest/api/3/issue/${params.issueIdOrKey}/transitions`, payload);
+    const response = await jiraClient.post(`/rest/api/2/issue/${params.issueIdOrKey}/transitions`, payload);
 
     return {
       content: [

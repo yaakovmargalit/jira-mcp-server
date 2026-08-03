@@ -22,7 +22,7 @@ export const getMetaToolDefinition = {
 
 /**
  * Handles the jira_get_create_metadata MCP tool call.
- * Official Endpoint: GET /rest/api/3/issue/createmeta
+ * Official Endpoint: GET /rest/api/2/issue/createmeta
  */
 export async function handleGetCreateMetadata(params: GetCreateMetadataParams) {
   try {
@@ -36,7 +36,7 @@ export async function handleGetCreateMetadata(params: GetCreateMetadataParams) {
       queryParams.issueTypeNames = params.issueTypeNames;
     }
 
-    const response = await jiraClient.get<JiraCreateMetaResponse>('/rest/api/3/issue/createmeta', {
+    const response = await jiraClient.get<JiraCreateMetaResponse>('/rest/api/2/issue/createmeta', {
       params: queryParams
     });
 

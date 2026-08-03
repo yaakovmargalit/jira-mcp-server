@@ -19,11 +19,11 @@ export const getIssueToolDefinition = {
 
 /**
  * Handles the jira_get_issue MCP tool call.
- * Official Endpoint: GET /rest/api/3/issue/{issueIdOrKey}
+ * Official Endpoint: GET /rest/api/2/issue/{issueIdOrKey}
  */
 export async function handleGetIssue(params: GetIssueParams) {
   try {
-    const response = await jiraClient.get<JiraIssueResponse>(`/rest/api/3/issue/${params.issueIdOrKey}`);
+    const response = await jiraClient.get<JiraIssueResponse>(`/rest/api/2/issue/${params.issueIdOrKey}`);
 
     return {
       content: [

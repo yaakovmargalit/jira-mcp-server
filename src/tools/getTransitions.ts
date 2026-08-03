@@ -19,11 +19,11 @@ export const getTransitionsToolDefinition = {
 
 /**
  * Handles the jira_get_transitions MCP tool call.
- * Official Endpoint: GET /rest/api/3/issue/{issueIdOrKey}/transitions
+ * Official Endpoint: GET /rest/api/2/issue/{issueIdOrKey}/transitions
  */
 export async function handleGetTransitions(params: GetTransitionsParams) {
   try {
-    const response = await jiraClient.get(`/rest/api/3/issue/${params.issueIdOrKey}/transitions`);
+    const response = await jiraClient.get(`/rest/api/2/issue/${params.issueIdOrKey}/transitions`);
 
     return {
       content: [

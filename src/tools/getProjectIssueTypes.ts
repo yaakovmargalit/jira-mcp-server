@@ -27,7 +27,7 @@ export const getProjectIssueTypesToolDefinition = {
 
 /**
  * Handles the jira_get_project_issue_types MCP tool call.
- * Official Endpoint: GET /rest/api/3/issue/createmeta/{projectIdOrKey}/issuetypes
+ * Official Endpoint: GET /rest/api/2/issue/createmeta/{projectIdOrKey}/issuetypes
  */
 export async function handleGetProjectIssueTypes(params: GetProjectIssueTypesParams) {
   try {
@@ -40,7 +40,7 @@ export async function handleGetProjectIssueTypes(params: GetProjectIssueTypesPar
     }
 
     const response = await jiraClient.get(
-      `/rest/api/3/issue/createmeta/${params.projectIdOrKey}/issuetypes`,
+      `/rest/api/2/issue/createmeta/${params.projectIdOrKey}/issuetypes`,
       { params: queryParams }
     );
 

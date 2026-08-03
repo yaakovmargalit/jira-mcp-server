@@ -23,18 +23,18 @@ export const findUsersToolDefinition = {
 
 /**
  * Handles the jira_find_users MCP tool call.
- * Official Endpoint: GET /rest/api/3/user/search
+ * Official Endpoint: GET /rest/api/2/user/search
  */
 export async function handleFindUsers(params: FindUsersParams) {
   try {
     const queryParams: Record<string, any> = {
-      query: params.query
+      username: params.query
     };
     if (params.maxResults !== undefined) {
       queryParams.maxResults = params.maxResults;
     }
 
-    const response = await jiraClient.get('/rest/api/3/user/search', {
+    const response = await jiraClient.get('/rest/api/2/user/search', {
       params: queryParams
     });
 
