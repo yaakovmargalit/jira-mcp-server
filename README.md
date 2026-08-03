@@ -103,3 +103,48 @@ Configure a command-based MCP server in your IDE:
 - **Type:** `command`
 - **Command:** `node /absolute/path/to/jira-mcp/bin/index.js`
 - Set the environment variables `JIRA_HOST`, `JIRA_EMAIL`, and `JIRA_API_TOKEN` in your system or project configuration.
+
+---
+
+## Publishing to Corporate JFrog Artifactory
+
+To distribute this package inside your organization using JFrog Artifactory as your private NPM registry:
+
+### 1. Configure the Target Registry
+Add a `publishConfig` object to your [package.json](file:///Users/yaakov.margalit/dev/jira-mcp/package.json) to redirect publishing to Artifactory:
+```json
+"publishConfig": {
+  "registry": "https://<your-jfrog-domain>/artifactory/api/npm/<npm-repository-name>/"
+}
+```
+
+Alternatively, create a `.npmrc` file in the root of the project:
+```ini
+registry=https://<your-jfrog-domain>/artifactory/api/npm/<npm-repository-name>/
+```
+
+### 2. Authenticate with JFrog Artifactory
+Log in to your private registry using your corporate credentials:
+```bash
+npm login --registry=https://<your-jfrog-domain>/artifactory/api/npm/<npm-repository-name>/
+```
+
+### 3. Build & Publish
+Compile the TypeScript code and upload the package:
+```bash
+npm run build
+npm publish
+```
+
+### 4. Consume via `npx`
+To run the server dynamically using `npx` from your private JFrog repository, specify the registry parameter:
+```bash
+npx --registry=https://<your-jfrog-domain>/artifactory/api/npm/<npm-repository-name>/ jira-mcp-server
+```
+
+*(Optional)* If you set your global npm registry configuration to point to your Artifactory NPM proxy (which resolves both local and public NPM packages):
+```bash
+npm config set registry https://<your-jfrog-domain>/artifactory/api/npm/<npm-repository-name>/
+npx jira-mcp-server
+```
+
